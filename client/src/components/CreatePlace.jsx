@@ -1,8 +1,28 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
+const handlePlace = (e) => {
+  event.preventDefault();
+  const form = e.target;
+  const placeName = form.placeName.value;
+  const discription = form.discription.value;
+  const fileUpload = form.fileUpload.value;
+  const item = { placeName, discription, fileUpload };
+  console.log(item);
+
+  fetch("http://localhost:5000/items", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(item),
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data));
+};
+
 const CreatePlace = () => {
   return (
-    <form>
+    <form onSubmit={handlePlace}>
       <div className="m-5">
         <div>
           <h2 className=" font-bold text-white text-5xl">Add a Place</h2>
@@ -51,34 +71,31 @@ const CreatePlace = () => {
             </div>
 
             <div className="col-span-full">
-              <label
-                htmlFor="cover-photo"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Cover photo
+              <label htmlFor="image" className="text-xl font-medium text-white">
+                Image of the Place:
               </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div className="mt-4 flex justify-center rounded-lg border border-dashed border-indigo-600 px-6 py-10">
                 <div className="text-center">
                   <PhotoIcon
-                    className="mx-auto h-12 w-12 text-gray-300"
+                    className="mx-auto h-12 w-12 text-white"
                     aria-hidden="true"
                   />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                  <div className="mt-4 flex text-sm leading-6 text-white">
                     <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                      htmlFor="fileUpload"
+                      className="relative cursor-pointer rounded-md bg-indigo-400 font-semibold text-black focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-100"
                     >
                       <span>Upload a file</span>
                       <input
-                        id="file-upload"
-                        name="file-upload"
+                        id="fileUpload"
+                        name="fileUpload"
                         type="file"
                         className="sr-only"
                       />
                     </label>
                     <p className="pl-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600">
+                  <p className="text-xs leading-7 text-white">
                     PNG, JPG, GIF up to 10MB
                   </p>
                 </div>
@@ -86,12 +103,14 @@ const CreatePlace = () => {
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Save
-        </button>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="mt-5 rounded-xl bg-indigo-600 px-10 py-2 text-xl font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </form>
   );
