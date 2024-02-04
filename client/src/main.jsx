@@ -15,15 +15,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:5000/items"),
       },
       {
         path: "/create-place",
-        element: <CreatePlace/>
+        element: <CreatePlace />,
       },
       {
         path: "/update-place",
-        element: <UpdatePlace/>
-      }
+        element: <UpdatePlace />,
+      },
     ],
   },
 ]);

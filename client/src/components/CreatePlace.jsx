@@ -6,7 +6,8 @@ const handlePlace = (e) => {
   const placeName = form.placeName.value;
   const discription = form.discription.value;
   const fileUpload = form.fileUpload.value;
-  const item = { placeName, discription, fileUpload };
+  const linkUpload = form.linkUpload.value;
+  const item = { placeName, discription, fileUpload, linkUpload };
   console.log(item);
 
   fetch("http://localhost:5000/items", {
@@ -51,7 +52,6 @@ const CreatePlace = () => {
                 </div>
               </div>
             </div>
-
             <div className="col-span-5">
               <label
                 htmlFor="discription"
@@ -70,34 +70,44 @@ const CreatePlace = () => {
               </div>
             </div>
 
-            <div className="col-span-full">
-              <label htmlFor="image" className="text-xl font-medium text-white">
-                Image of the Place:
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="fileUpload"
+                className="text-xl font-medium text-white"
+              >
+                Img URL:
               </label>
-              <div className="mt-4 flex justify-center rounded-lg border border-dashed border-indigo-600 px-6 py-10">
-                <div className="text-center">
-                  <PhotoIcon
-                    className="mx-auto h-12 w-12 text-white"
-                    aria-hidden="true"
+              <div className="mt-4">
+                <div className="flex rounded-md ring-2 ring-inset text-white focus-within:ring-1 focus-within:ring-inset focus-within:ring-indigo-600">
+                  <input
+                    type="text"
+                    name="fileUpload"
+                    id="fileUpload"
+                    autoComplete="fileUpload"
+                    className="flex-1 bg-transparent py-2.5 pl-2 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Paste your image URL here"
                   />
-                  <div className="mt-4 flex text-sm leading-6 text-white">
-                    <label
-                      htmlFor="fileUpload"
-                      className="relative cursor-pointer rounded-md bg-indigo-400 font-semibold text-black focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-100"
-                    >
-                      <span>Upload a file</span>
-                      <input
-                        id="fileUpload"
-                        name="fileUpload"
-                        type="file"
-                        className="sr-only"
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-7 text-white">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="linkUpload"
+                className="text-xl font-medium text-white"
+              >
+                Read More URL:
+              </label>
+              <div className="mt-4">
+                <div className="flex rounded-md ring-2 ring-inset text-white focus-within:ring-1 focus-within:ring-inset focus-within:ring-indigo-600">
+                  <input
+                    type="text"
+                    name="linkUpload"
+                    id="linkUpload"
+                    autoComplete="linkUpload"
+                    className="flex-1 bg-transparent py-2.5 pl-2 focus:ring-0 sm:text-sm sm:leading-6"
+                    placeholder="Paste your read more URL here"
+                  />
                 </div>
               </div>
             </div>
