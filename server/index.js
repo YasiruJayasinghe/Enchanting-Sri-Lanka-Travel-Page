@@ -6,7 +6,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri =
   "mongodb+srv://yasirujayasinghe129:PMnDsuD3qvJplzsA@cluster0.pehcar7.mongodb.net/?retryWrites=true&w=majority";
 
@@ -38,6 +38,21 @@ async function run() {
       const cursor = itemsCollection.find();
       const result = await cursor.toArray();
       res.send(result);
+    });
+
+    app.delete("/items/:id", async (req, res) => {
+      const itemId = req.params.id;
+      try {
+        const result = await itemsCollection.deleteOne({ _id: new ObjectId(itemId) });
+        if (result.deletedCount > 0) {
+          res.send({ acknowledged: 1, message: "Item deleted successfully" });
+        } else {
+          res.status(404).send({ acknowledged: 0, message: "Item not found" });
+        }
+      } catch (error) {
+        console.error("Error deleting item:", error);
+        res.status(500).send({ acknowledged: 0, message: "Internal server error" });
+      }
     });
 
     // Send a ping to confirm a successful connection
